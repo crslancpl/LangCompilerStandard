@@ -4,12 +4,13 @@
 #include "FileReader.h"
 #include "FileDatas.h"
 #include "GlobalTools.h"
+#include "ProjectMisc.h"
 
 
 Reader::Reader(string FilePath){
     Path = FilePath;
     CurrentFile.InputFilePath = FilePath;
-    string FileName = GetFileName(FilePath);
+    FileName = GetFileName(FilePath);
     DedicatedLog.FileName = FileName;
     Log::WriteLine(FileName);
 }
@@ -22,6 +23,7 @@ string Reader::GetFileName(const string &FilePath){
 
 void Reader::ReadFile(const string &FilePath){
     Log::WriteLine(FilePath);
-    unique_ptr<Reader> R = make_unique<Reader>(FilePath);
-
+    shared_ptr<Reader> R = make_shared<Reader>(FilePath);
+    cout << "new reader ptr" << R.get() << endl;
+    AddReader(R);
 }
