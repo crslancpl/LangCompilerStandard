@@ -34,6 +34,33 @@ vector<string> TrimText(const string &Text, const vector<char> &Saperator) {
 	return v;
 }
 
+vector<string> TrimText(const string &Text, const string &Saperator) {
+	vector<string> v;
+	string s;
+	for (char c : Text) {
+		bool IsSap = false;
+		for (char Sape : Saperator) {
+			if(Sape == c){
+				IsSap = true;
+			}
+		}
+		if(IsSap){
+			if(!s.empty()){
+				v.emplace(v.end(), s);
+				s.clear();
+			}
+		}else{
+			s += c;
+		}
+	}
+
+	if(!s.empty()){
+		v.emplace(v.end(), s);
+		s.clear();
+	}
+	return v;
+}
+
 bool Contains(vector<string> &list, const string &item) {
   if (find(list.begin(), list.end(), item) != list.end()) {
     return true;
@@ -42,6 +69,8 @@ bool Contains(vector<string> &list, const string &item) {
   }
 }
 
+// Class Log
+// static
 void Log::Write(const string &Message){
     cout << Message;
 }
@@ -49,7 +78,7 @@ void Log::Write(const string &Message){
 void Log::WriteLine(const string &Message){
     cout << Message<< endl;
 }
-
+// none-static
 void Log::Err(const string &Message, const string &Details, unsigned int Line){
     if(HideError) return;
     cout << endl;

@@ -3,15 +3,17 @@
 * job of reading every characters of the input file and pass it
 * to the
 */
+#include <fstream>
+#include <iostream>
 
 #include "FileReader.h"
 #include "GlobalTools.h"
-#include <fstream>
-#include <iostream>
+
 
 using namespace std;
 
 int main(){
-    Reader::ReadFile("const/string\\&FilePath");
+    Log::WriteLine("Compiler started");
+    Reader::ReadFile("/home/er/.mozilla/firefox/3a880qck.default-nightly-1/chrome/userChrome.css");
     return 0;
 }

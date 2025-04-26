@@ -17,7 +17,6 @@ using namespace std;
 class Reader{
     public:
     Reader(string FilePath);
-
     static void ReadFile(const string &FilePath);
 
     Log DedicatedLog;
@@ -27,6 +26,7 @@ class Reader{
 
 
     private:
+    string GetFileName(const string &FilePath);
 };
 
 #endif

@@ -8,6 +8,7 @@
 using namespace std;
 
 vector<string> TrimText(const string &Text, const vector<char> &Saperator);
+vector<string> TrimText(const string &Text, const string &Saperator);
 
 bool Contains(vector<string> &list, const string &item);
 
