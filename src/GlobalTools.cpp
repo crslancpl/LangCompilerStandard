@@ -72,7 +72,7 @@ bool Contains(vector<string> &list, const string &item) {
 // Class Log
 // static
 void Log::Write(const string &Message){
-    cout << Message;
+    cout << Message << " ";
 }
 
 void Log::WriteLine(const string &Message){

@@ -16,7 +16,7 @@ using namespace std;
 
 int main(){
     Log::WriteLine("Compiler started");
-    Reader::ReadFile("/home/er/.mozilla/firefox/3a880qck.default-nightly-1/chrome/userChrome.css");
+    Reader::ReadFile("/home/er/Documents/CustomLanguageCompiler/LangCompilerStandard/TestingInputFiles/First.txt");
 
 
     return 0;

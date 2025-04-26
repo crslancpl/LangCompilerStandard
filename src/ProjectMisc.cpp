@@ -1,8 +1,9 @@
 #include <algorithm>
 #include <memory>
 
-#include "FileReader.h"
 #include "ProjectMisc.h"
+
+#include "FileReader.h"
 #include "FileDatas.h"
 #include "GlobalTools.h"
 

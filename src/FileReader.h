@@ -18,22 +18,25 @@ using namespace std;
 
 class Reader{
     public:
-    //static
+    /* static */
 
-    //this will automatically create an instance of reader
+
     static void ReadFile(const string &FilePath);
+    //this will automatically create an instance of reader
 
-    /*none-static*/
+    /* none-static */
     Reader(string FilePath);
 
-    //this will store current file name
     Log DedicatedLog;
+    //this will store current file name
     FileDatas CurrentFile;
     string Path;
     string FileName;
+    int TotalLine; //this will be known when searching for tag
     int CurrentLine;
 
     private:
+    void FindTag();
     string GetFileName(const string &FilePath);
 };
 
