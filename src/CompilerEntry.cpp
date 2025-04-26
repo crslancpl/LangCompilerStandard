@@ -4,12 +4,14 @@
 * to the
 */
 
+#include "FileReader.h"
+#include "GlobalTools.h"
 #include <fstream>
 #include <iostream>
 
 using namespace std;
 
 int main(){
-
+    Reader::ReadFile("const/string\\&FilePath");
     return 0;
 }

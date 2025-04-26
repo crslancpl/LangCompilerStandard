@@ -1,5 +1,7 @@
 #include <vector>
 #include <string>
+#include <iostream>
+#include <algorithm>
 
 #include "GlobalTools.h"
 
@@ -32,16 +34,23 @@ vector<string> TrimText(const string &Text, const vector<char> &Saperator) {
 	return v;
 }
 
+bool Contains(vector<string> &list, const string &item) {
+  if (find(list.begin(), list.end(), item) != list.end()) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
-void Log::Write(string Message){
+void Log::Write(const string &Message){
     cout << Message;
 }
 
-void Log::WriteLine(string Message){
+void Log::WriteLine(const string &Message){
     cout << Message<< endl;
 }
 
-void Log::Err(string Message, string Details, unsigned int Line){
+void Log::Err(const string &Message, const string &Details, unsigned int Line){
     if(HideError) return;
     cout << endl;
     cout << "error: " << FileName << " Line: " << Line << endl;
@@ -49,7 +58,7 @@ void Log::Err(string Message, string Details, unsigned int Line){
     cout << Details << endl;
 }
 
-void Log::Warn(string Message, string Details, unsigned int Line){
+void Log::Warn(const string &Message, const string &Details, unsigned int Line){
     if(HideWarning) return;
     cout << endl;
     cout << "warning: " << FileName << " Line: " << Line << endl;
@@ -57,7 +66,7 @@ void Log::Warn(string Message, string Details, unsigned int Line){
     cout << Details << endl;
 }
 
-void Log::Suggest(string Message, string Details, unsigned int Line){
+void Log::Suggest(const string &Message, const string &Details, unsigned int Line){
     if(HideSuggest) return;
     cout << endl;
     cout << "suggestion: " << FileName << " Line: " << Line << endl;
@@ -65,7 +74,7 @@ void Log::Suggest(string Message, string Details, unsigned int Line){
     cout << Details << endl;
 }
 
-void Log::Info(string Message, string Details, unsigned int Line){
+void Log::Info(const string &Message, const string &Details, unsigned int Line){
     if(HideInfo) return;
     cout << endl;
     cout << "info: " << FileName << " Line: " << Line << endl;

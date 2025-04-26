@@ -4,6 +4,7 @@
 
 #ifndef FILEREADER_H_
 #define FILEREADER_H_
+#include "GlobalTools.h"
 #pragma once
 
 #include <iostream>
@@ -14,8 +15,12 @@
 using namespace std;
 
 class Reader{
-    Reader(string FilePath);
     public:
+    Reader(string FilePath);
+
+    static void ReadFile(const string &FilePath);
+
+    Log DedicatedLog;
     FileDatas CurrentFile;
     string Path;
     int CurrentLine;
