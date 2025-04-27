@@ -36,12 +36,13 @@ class Reader{
     int CurrentLine;
 
     private:
+    TagProcessor p;
+    vector<int> TagLines;
     int TotalLine; //this will be known when searching for tag
 
     void GetFileNameAndDir(const string &FilePath);
 
     void FindTag();
-    TagProcessor p;
 
 };
 

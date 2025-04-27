@@ -7,7 +7,7 @@
 #include "FileDatas.h"
 #include "GlobalTools.h"
 
-vector< shared_ptr<Reader> > Readers;
+
 vector<string> AssociateFiles;
 
 string InputFileDirectory;
@@ -22,11 +22,14 @@ string GetInputFileDir(){
 };
 
 void AddReader(shared_ptr<Reader> &reader){
-    cout << "add reader "<< endl;
-
     Readers.push_back(reader);
 
-    Log::Write("(Path: ");
-    Log::WriteLine( reader->Path);
+}
 
+void PrintReaders(){
+    Log::WriteLine("All Readers: ");
+    cout << "count: " << Readers.size() << endl;
+    for(shared_ptr<Reader> r: Readers){
+        cout<< r->FileName <<" ptr: "<< r.get() << endl;
+    }
 }

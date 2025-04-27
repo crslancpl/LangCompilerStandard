@@ -11,7 +11,7 @@ using namespace std;
 class TagProcessor{
     public:
     Log *ParentLogger;
-    void IdentifyTag(const string &TagContent, int Line);
+    bool IdentifyTag(const string &TagContent, int Line);
 };
 
 

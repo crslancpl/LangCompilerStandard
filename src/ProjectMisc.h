@@ -16,10 +16,12 @@
 
 using namespace std;
 
+static vector< shared_ptr<Reader> > Readers;
+
 void AddReader(shared_ptr<Reader> &reader);
 
 void SetInputFileDir(const string &Dir);
 string GetInputFileDir();
-
+void PrintReaders();
 
 #endif
