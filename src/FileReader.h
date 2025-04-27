@@ -1,5 +1,5 @@
 /*
-* This will read the input file character by character
+* This will first read all the tag, then read the input file character by character
 */
 
 #ifndef FILEREADER_H_
@@ -13,6 +13,7 @@
 
 #include "GlobalTools.h"
 #include "FileDatas.h"
+#include "Tags.h"
 
 using namespace std;
 
@@ -20,24 +21,28 @@ class Reader{
     public:
     /* static */
 
-
     static void ReadFile(const string &FilePath);
     //this will automatically create an instance of reader
 
     /* none-static */
-    Reader(string FilePath);
 
+    Reader(string FilePath);
     Log DedicatedLog;
     //this will store current file name
     FileDatas CurrentFile;
     string Path;
     string FileName;
-    int TotalLine; //this will be known when searching for tag
+
     int CurrentLine;
 
     private:
+    int TotalLine; //this will be known when searching for tag
+
+    void GetFileNameAndDir(const string &FilePath);
+
     void FindTag();
-    string GetFileName(const string &FilePath);
+    TagProcessor p;
+
 };
 
 #endif

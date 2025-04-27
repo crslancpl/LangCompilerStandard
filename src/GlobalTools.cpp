@@ -84,6 +84,7 @@ void Log::Err(const string &Message, const string &Details, unsigned int Line){
     cout << endl;
     cout << "error: " << FileName << " Line: " << Line << endl;
     cout << Message << endl;
+    if(Details.empty()) return;
     cout << Details << endl;
 }
 
@@ -92,6 +93,7 @@ void Log::Warn(const string &Message, const string &Details, unsigned int Line){
     cout << endl;
     cout << "warning: " << FileName << " Line: " << Line << endl;
     cout << Message << endl;
+    if(Details.empty()) return;
     cout << Details << endl;
 }
 
@@ -100,6 +102,7 @@ void Log::Suggest(const string &Message, const string &Details, unsigned int Lin
     cout << endl;
     cout << "suggestion: " << FileName << " Line: " << Line << endl;
     cout << Message << endl;
+    if(Details.empty()) return;
     cout << Details << endl;
 }
 
@@ -108,5 +111,6 @@ void Log::Info(const string &Message, const string &Details, unsigned int Line){
     cout << endl;
     cout << "info: " << FileName << " Line: " << Line << endl;
     cout << Message << endl;
+    if(Details.empty()) return;
     cout << Details << endl;
 }

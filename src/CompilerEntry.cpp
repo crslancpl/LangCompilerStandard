@@ -14,10 +14,9 @@
 
 using namespace std;
 
-int main(){
-    Log::WriteLine("Compiler started");
-    Reader::ReadFile("/home/er/Documents/CustomLanguageCompiler/LangCompilerStandard/TestingInputFiles/First.txt");
-
-
+int main(int argnumber,char** InputFilePath){
+    Log::WriteLine(">>Compiler started");
+    Reader::ReadFile(InputFilePath[1]);
+    Log::WriteLine(">> Compiler ended");
     return 0;
 }

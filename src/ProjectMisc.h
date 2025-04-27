@@ -18,6 +18,8 @@ using namespace std;
 
 void AddReader(shared_ptr<Reader> &reader);
 
+void SetInputFileDir(const string &Dir);
+string GetInputFileDir();
 
 
 #endif
