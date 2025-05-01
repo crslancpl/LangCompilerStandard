@@ -16,8 +16,6 @@
 
 using namespace std;
 
-static vector< shared_ptr<Reader> > Readers;
-
 void AddReader(shared_ptr<Reader> &reader);
 
 void SetInputFileDir(const string &Dir);
@@ -26,6 +24,10 @@ void SetEntryFile(const string& FilePath);
 string GetEntryFile();
 void SetEntryFunc(const string &FuncName);
 string GetEntryFuncName();
+
+void AddProcessedFile(pair<string,bool> *p);
+bool CheckIfFileProcessedBefore(const string &FileName);
+//If no than it will be pushed to `map<string,bool> AssociateFiles` in ProjectMisc.cpp
 
 void PrintReaders();
 

@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <memory>
+#include <map>
+#include <string>
 
 #include "ProjectMisc.h"
 
@@ -8,7 +10,9 @@
 #include "GlobalTools.h"
 
 
-vector<string> AssociateFiles;
+map<string,bool> AssociateFiles;
+
+vector< shared_ptr<Reader> > Readers;
 
 string InputFileDirectory = "";
 string EntryFile = "";
@@ -34,10 +38,23 @@ string GetEntryFuncName(){
     return EntryFunction;
 }
 
+void AddProcessedFile(pair<string,bool> *p){
+    AssociateFiles.insert(AssociateFiles.end(),*p);
+}
+
+bool CheckIfFileProcessedBefore(const string &FileName){
+    map<string, bool>::iterator iterator = AssociateFiles.find(FileName);
+    if(iterator == AssociateFiles.end()){
+        //not found in list
+        return false;
+    }else{
+        return true;
+    }
+}
+
 
 void AddReader(shared_ptr<Reader> &reader){
     Readers.push_back(reader);
-
 }
 
 void PrintReaders(){

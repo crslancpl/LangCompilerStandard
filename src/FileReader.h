@@ -39,6 +39,8 @@ class Reader{
 
     int TotalLine; //this will be known when searching for tag
 
+    void InitializeReader(const string &FilePath);
+
     void GetFileNameAndDir(const string &FilePath);
 
     void FindTag();
@@ -46,6 +48,8 @@ class Reader{
     bool IdentifyTag(const string &TagContent);
 
     void Read(); //read the file character by character
+
+    void ProcessText(char NextChar);
 
 };
 

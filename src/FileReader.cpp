@@ -1,6 +1,8 @@
+#include <cstdlib>
 #include <string>
 #include <memory>
 #include <fstream>
+#include <utility>
 
 #include "FileReader.h"
 
@@ -11,18 +13,38 @@
 
 
 void Reader::ReadFile(const string &FilePath){
+    if(CheckIfFileProcessedBefore(FilePath)){
+
+    }
     shared_ptr<Reader> R = make_shared<Reader>(FilePath);
-    AddReader(R);
+
+    pair<string, bool> F;//<file name, is file exist>, this will be given to ProjectMisc.cpp
+    F.first = FilePath;
+    F.second = R->IsFileExist;
+    cout << R->IsFileExist << endl;
+    if(R->IsFileExist){
+        AddReader(R);
+    }else{
+        Log::WriteLine(FilePath + " is not existing");
+    }
+
+    //AddProcessedFile(&F);
 }
 
 Reader::Reader(string FilePath){
     InputFile.open(FilePath);
-    if(!InputFile.is_open()){
-        IsFileExist = false;
-        Logger.Err("Cannot open file", Datas.Path);
-        return;
-    }
+    Log::WriteLine("Openning " + FilePath);
 
+    if(InputFile.is_open()){
+        Log::WriteLine("File openned");
+        InitializeReader(FilePath);
+    }else{
+        Log::WriteLine("Cannot open file" + Datas.Path);
+        IsFileExist = false;
+    }
+}
+
+void Reader::InitializeReader(const string &FilePath){
     Datas.Path = FilePath;
     Datas.InputFilePath = FilePath;
     GetFileNameAndDir(FilePath);
@@ -121,9 +143,16 @@ void Reader::Read(){
     Datas.CurrentLine = 0;
     static string Symbol;
 
-    while(InputFile.get()){
-
+    char c;
+    while(InputFile.get(c)){
+        // The processor have to preload one char ahead so it can
+        // determine is the next character associate with the current string
+        ProcessText(c);
     }
 
     InputFile.close();
+}
+
+void Reader::ProcessText(char NextChar){
+    static string CurrentText;
 }
