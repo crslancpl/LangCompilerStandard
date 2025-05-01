@@ -22,6 +22,11 @@ void AddReader(shared_ptr<Reader> &reader);
 
 void SetInputFileDir(const string &Dir);
 string GetInputFileDir();
+void SetEntryFile(const string& FilePath);
+string GetEntryFile();
+void SetEntryFunc(const string &FuncName);
+string GetEntryFuncName();
+
 void PrintReaders();
 
 #endif

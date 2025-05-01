@@ -79,37 +79,37 @@ void Log::WriteLine(const string &Message){
     cout << Message<< endl;
 }
 // none-static
-void Log::Err(const string &Message, const string &Details, unsigned int Line){
+void Log::Err(const string &Message, const string &Details){
     if(HideError) return;
     cout << endl;
-    cout << "error: " << FileName << " Line: " << Line << endl;
+    cout << "error: " << ParentFileDatas->FileName << " Line: " << ParentFileDatas->CurrentLine << endl;
     cout << Message << endl;
     if(Details.empty()) return;
     cout << Details << endl;
 }
 
-void Log::Warn(const string &Message, const string &Details, unsigned int Line){
+void Log::Warn(const string &Message, const string &Details){
     if(HideWarning) return;
     cout << endl;
-    cout << "warning: " << FileName << " Line: " << Line << endl;
+    cout << "warning: " << ParentFileDatas->FileName << " Line: " << ParentFileDatas->CurrentLine << endl;
     cout << Message << endl;
     if(Details.empty()) return;
     cout << Details << endl;
 }
 
-void Log::Suggest(const string &Message, const string &Details, unsigned int Line){
+void Log::Suggest(const string &Message, const string &Details){
     if(HideSuggest) return;
     cout << endl;
-    cout << "suggestion: " << FileName << " Line: " << Line << endl;
+    cout << "suggestion: " << ParentFileDatas->FileName << " Line: " <<ParentFileDatas ->CurrentLine << endl;
     cout << Message << endl;
     if(Details.empty()) return;
     cout << Details << endl;
 }
 
-void Log::Info(const string &Message, const string &Details, unsigned int Line){
+void Log::Info(const string &Message, const string &Details){
     if(HideInfo) return;
     cout << endl;
-    cout << "info: " << FileName << " Line: " << Line << endl;
+    cout << "info: " << ParentFileDatas->FileName << " Line: " << ParentFileDatas ->CurrentLine << endl;
     cout << Message << endl;
     if(Details.empty()) return;
     cout << Details << endl;

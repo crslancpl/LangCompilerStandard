@@ -1,6 +1,6 @@
 /*
 * Items are the things defined in the code, for example: variables,
-* functions, classes. There is a 'E' at the end of class name to
+* functions, classes. There is a 'E' infront of class name to
 * prevent ambiguous with other built-in items
 *
 */
@@ -16,38 +16,39 @@
 
 using namespace std;
 
-class ItemE{
+class EItem{
     public:
     vector<string> scopes;
     string Name;
     string Type;
 };
 
-class VariableE: public ItemE{
+class EVariable: public EItem{
     public:
+    bool Static;
     bool IsInitialized;
 };
 
-class FunctionE: public ItemE{
+class EFunction: public EItem{
     public:
     map<string, string> args; //<arg name, arg type>
 };
 
-class ClassConstructorE: public FunctionE{
+class EClassConstructor: public EFunction{
     public:
 
 };
 
-class ClassE: public ItemE{
+class EClass: public EItem{
     public:
     //Constructor
-    vector<ClassConstructorE> Constructors;
+    vector<EClassConstructor> Constructors;
     //Non-static
-    map<string, FunctionE> Methods; //<method name, method>
-    map<string, VariableE> Variables; //variable name, variable>
+    map<string, EFunction> Methods; //<method name, method>
+    map<string, EVariable> Variables; //variable name, variable>
     //Staitc
-    map<string, FunctionE> StaticMethods; //<method name, method>
-    map<string, VariableE> StaticVariables; //variable name, variable>
+    map<string, EFunction> StaticMethods; //<method name, method>
+    map<string, EVariable> StaticVariables; //variable name, variable>
 };
 
 

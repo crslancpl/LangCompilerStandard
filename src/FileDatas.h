@@ -5,7 +5,8 @@
 
 #include <string>
 #include <vector>
-#include <map>
+
+#include "Items.h"
 
 
 using namespace std;
@@ -13,9 +14,17 @@ using namespace std;
 
 class FileDatas{
     public:
+    string Path;
+    string FileName;
     string InputFilePath;
+    unsigned int CurrentLine;
+    vector<int> TagLines;
+
     vector<string> AssociatedFiles;
-    map<string, string> Variables; //<variable name, variable type>
+
+    vector<EVariable> Variables;
+    vector<EFunction> Functtios;
+    vector<EClass> Classes;
 };
 
 #endif

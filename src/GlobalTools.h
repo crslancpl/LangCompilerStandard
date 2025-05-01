@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "FileDatas.h"
+
 using namespace std;
 
 vector<string> TrimText(const string &Text, const vector<char> &Saperator);
@@ -14,19 +16,19 @@ bool Contains(vector<string> &list, const string &item);
 
 class Log{
     public:
-    string FileName;
+    FileDatas *ParentFileDatas;
 
     static void Write(const string &Message);
     static void WriteLine(const string &Message);
 
     bool HideError = false;
-    void Err(const string &Message, const string &Details, unsigned int Line);
+    void Err(const string &Message, const string &Details);
     bool HideWarning = false;
-    void Warn(const string &Message, const string &Details, unsigned int Line);
+    void Warn(const string &Message, const string &Details);
     bool HideSuggest = false;
-    void Suggest(const string &Message, const string &Details, unsigned int Line);
+    void Suggest(const string &Message, const string &Details);
     bool HideInfo = false;
-    void Info(const string &Message, const string &Details, unsigned int Line);
+    void Info(const string &Message, const string &Details);
 };
 
 #endif

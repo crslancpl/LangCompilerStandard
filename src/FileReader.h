@@ -5,6 +5,7 @@
 #ifndef FILEREADER_H_
 #define FILEREADER_H_
 
+#include <fstream>
 #pragma once
 
 #include <memory>
@@ -13,36 +14,38 @@
 
 #include "GlobalTools.h"
 #include "FileDatas.h"
-#include "Tags.h"
 
 using namespace std;
 
 class Reader{
     public:
     /* static */
-
     static void ReadFile(const string &FilePath);
     //this will automatically create an instance of reader
 
-    /* none-static */
-
+    /* constructor */
     Reader(string FilePath);
-    Log DedicatedLog;
-    //this will store current file name
-    FileDatas CurrentFile;
-    string Path;
-    string FileName;
 
-    int CurrentLine;
+    /* none-static */
+    bool IsFileExist = true;
+    Log Logger;
+    //this will store current file name
+
+    /* File Data*/
+    FileDatas Datas;
 
     private:
-    TagProcessor p;
-    vector<int> TagLines;
+    ifstream InputFile;
+
     int TotalLine; //this will be known when searching for tag
 
     void GetFileNameAndDir(const string &FilePath);
 
     void FindTag();
+
+    bool IdentifyTag(const string &TagContent);
+
+    void Read(); //read the file character by character
 
 };
 
