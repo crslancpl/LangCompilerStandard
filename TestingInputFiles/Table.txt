@@ -1,0 +1,24 @@
+#Table
+{
+
+Lang{
+    var %name = %value
+}
+
+Lang nasm{
+    %name db %value,0h
+}
+
+}
+
+{
+Lang{
+    var %name
+}
+
+Lang nasm{
+    %name resb 32
+}
+
+}
+#Table

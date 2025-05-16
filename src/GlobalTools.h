@@ -12,7 +12,12 @@ using namespace std;
 vector<string> TrimText(const string &Text, const vector<char> &Saperator);
 vector<string> TrimText(const string &Text, const string &Saperator);
 
-bool Contains(vector<string> &list, const string &item);
+bool IsNumberChar(char c);
+bool IsAlphabetChar(char c);
+
+bool Contains(const vector<string> &list, const string &item);
+bool Contains(const string &list, char character);
+void RemoveLeadingInvisibleChar(string &Text);
 
 class Log{
     public:

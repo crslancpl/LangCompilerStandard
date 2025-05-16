@@ -12,34 +12,35 @@
 #include "TextProcessor.h"
 
 
+string ValidCharForName = "abcdefghijklmnopqrstubwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+
+
 void Reader::ReadFile(const string &FilePath){
     if(CheckIfFileProcessedBefore(FilePath)){
-
+        Log::WriteLine(FilePath + " has been processed before");
+        return;
     }
     shared_ptr<Reader> R = make_shared<Reader>(FilePath);
 
     pair<string, bool> F;//<file name, is file exist>, this will be given to ProjectMisc.cpp
     F.first = FilePath;
     F.second = R->IsFileExist;
-    cout << R->IsFileExist << endl;
+
     if(R->IsFileExist){
         AddReader(R);
     }else{
-        Log::WriteLine(FilePath + " is not existing");
+        Log::WriteLine(FilePath + " does not exist");
     }
-
-    //AddProcessedFile(&F);
+    AddProcessedFile(&F);
 }
 
 Reader::Reader(string FilePath){
     InputFile.open(FilePath);
-    Log::WriteLine("Openning " + FilePath);
+    Log::WriteLine("Reading " + FilePath);
 
     if(InputFile.is_open()){
-        Log::WriteLine("File openned");
         InitializeReader(FilePath);
     }else{
-        Log::WriteLine("Cannot open file" + Datas.Path);
         IsFileExist = false;
     }
 }
@@ -50,7 +51,6 @@ void Reader::InitializeReader(const string &FilePath){
     GetFileNameAndDir(FilePath);
     Logger.ParentFileDatas = &Datas;
 
-    Log::WriteLine("FileName: "+Datas.FileName);
     //Find the tag in the file first
     FindTag(); //Current progress
     //And then trim the whole file to symbols (skip Tags and comments)
@@ -77,15 +77,13 @@ void Reader::FindTag(){
     string s;
     Datas.CurrentLine = 0; //This is only for finding Preprocessor
 
-    bool IsNotEnd = true;
-    while(true) {
+    while(getline(InputFile, s)) {
         Datas.CurrentLine ++;
-        getline(InputFile, s);
-        if(s.empty()) break;
+        RemoveLeadingInvisibleChar(s);
         if(s[0] == '#') {
             //cout << cnt << "." << s << endl;//輸出格式1(有#)
             string TagContent = s.substr(1);
-            cout << Datas.FileName <<" "<<Datas.CurrentLine << "." << TagContent << endl;//輸出格式2(沒#)
+            cout <<"Preprocessor: "<<Datas.FileName <<" "<<Datas.CurrentLine << "." << TagContent << endl;//輸出格式2(沒#)
             bool IsValidTag = IdentifyTag(TagContent);
             if(IsValidTag){
                 Datas.TagLines.push_back(Datas.CurrentLine);
@@ -153,6 +151,46 @@ void Reader::Read(){
     InputFile.close();
 }
 
-void Reader::ProcessText(char NextChar){
+enum class ProcessType: short{
+    Text, NumberAndByte, None
+};
+
+void Reader::ProcessText(char NewChar){
     static string CurrentText;
+    static ProcessType p;
+    static string Note;
+
+    if(p == ProcessType::Text){
+        CurrentText += NewChar;
+        if(NewChar == '\\'){
+            //escape character
+            Note = "escape";
+        }else if(NewChar == CurrentText[0]){
+            if(Note == "escape"){
+                Note.clear();
+            }else{
+                PushSymbol(CurrentText);
+            }
+        }else{
+            Note.clear();
+        }
+        return;
+    }
+
+    if(IsNumberChar(NewChar)){
+        //Number
+    }else if(IsAlphabetChar(NewChar)){
+        //Alphabet
+    }else{
+        //Special char
+    }
+
+}
+
+void Reader::PushSymbol(string &Symbol){
+    if(! Symbol.empty()){
+        Symbols.push_back(Symbol);
+        Symbol.clear();
+    }
+
 }

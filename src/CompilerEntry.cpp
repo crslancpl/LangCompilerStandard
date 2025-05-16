@@ -17,6 +17,10 @@ using namespace std;
 
 int main(int argnumber,char** InputFilePath){
     Log::WriteLine(">> Compiler started");
+    if(argnumber == 1){
+        Log::WriteLine("No input file");
+        return 0;
+    }
     SetEntryFile(InputFilePath[1]);
 
     Reader::ReadFile(InputFilePath[1]);
