@@ -152,13 +152,20 @@ void Reader::Read(){
 }
 
 enum class ProcessType: short{
-    Text, NumberAndByte, None
+    Text, NumberAndByte, Command, None
 };
 
 void Reader::ProcessText(char NewChar){
     static string CurrentText;
     static ProcessType p;
     static string Note;
+
+    if(p == ProcessType::Command){
+        if(NewChar == '\n'){
+            p = ProcessType::None;
+        }
+        return;
+    }
 
     if(p == ProcessType::Text){
         CurrentText += NewChar;

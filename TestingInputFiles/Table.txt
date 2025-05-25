@@ -1,24 +1,32 @@
-#Table
-{
-
-Lang{
-    var %name = %value
-}
-
-Lang nasm{
-    %name db %value,0h
-}
-
-}
-
-{
-Lang{
-    var %name
-}
-
-Lang nasm{
-    %name resb 32
-}
-
-}
-#Table
+#VAR
+var
+#FUNC
+function
+#CLASS
+class
+#EQUAL
+=
+#ADD
++
+#DASH
+-
+#STAR
+*
+#SLASH
+/
+#SINQUO
+'
+#DOUQUO
+"
+#BRACKL
+(
+#BRACKR
+)
+#ANGBRACKL
+<
+#ANGBRACKR
+>
+#BLOCBRACKL
+[
+#BLOCBRACKR
+]
