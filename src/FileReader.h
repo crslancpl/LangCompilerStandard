@@ -6,6 +6,7 @@
 #define FILEREADER_H_
 
 #include <fstream>
+#include <vector>
 #pragma once
 
 #include <memory>
@@ -30,7 +31,7 @@ class Reader{
     bool IsFileExist = true;
     Log Logger;
     //this will store current file name
-
+    vector<string> Symbols;
     /* File Data*/
     FileDatas Datas;
 
@@ -47,9 +48,11 @@ class Reader{
 
     bool IdentifyTag(const string &TagContent);
 
-    void Read(); //read the file character by character
+    void Read(); //read the file character by character and pass it to ProcessText()
 
-    void ProcessText(char NextChar);
+    void ProcessText(char NewChar);
+
+    void PushSymbol(string &Symbol);
 
 };
 
