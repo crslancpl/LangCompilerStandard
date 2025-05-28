@@ -1,18 +1,55 @@
+/*
+*
+*
+*/
+
+#include "ProjectMisc.h"
+
 #include <algorithm>
 #include <memory>
 #include <map>
 #include <string>
-
-#include "ProjectMisc.h"
+#include <utility>
 
 #include "FileReader.h"
 #include "FileDatas.h"
 #include "GlobalTools.h"
 
 
-map<string,bool> AssociateFiles;
+
+map< string, TypeCode> KeywordsTypes;
+map< string, TypeCode> Keywords;
+void AddKeywordCode(const string &Keyword, unsigned short Code){
+    pair<string, TypeCode> P;
+    P.first = Keyword;
+    P.second = static_cast<TypeCode>(Code);
+    KeywordsTypes.insert(KeywordsTypes.end(), P);
+}
+
+void AddKeyword(const string &Type, const string &Keyword){
+    // Type can be either name or code of the keyword
+    pair<string, TypeCode> P;
+    P.first = Keyword;
+    if(IsNumberChar(Type[0])){
+        // The mapping is mapped by code instead of the name of keyword
+        P.second = static_cast<TypeCode>(stoi(Type));
+    }else{
+        map<string, TypeCode>::iterator i = KeywordsTypes.find(Type);
+        if(i != KeywordsTypes.end()){
+            P.second = i ->second;
+        }else{
+            return;
+        }
+    }
+    Keywords.insert(Keywords.end(), P);
+}
+
+
+
+
 
 vector< shared_ptr<Reader> > Readers;
+map<string,bool> AssociateFiles;
 
 string InputFileDirectory = "";
 string EntryFile = "";

@@ -1,9 +1,9 @@
+#include "GlobalTools.h"
+
 #include <vector>
 #include <string>
 #include <iostream>
 #include <algorithm>
-
-#include "GlobalTools.h"
 
 using namespace std;
 
