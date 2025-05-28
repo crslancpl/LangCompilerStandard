@@ -6,9 +6,9 @@
 
 #ifndef PROJECTMISC_H_
 #define PROJECTMISC_H_
-#include <utility>
 #pragma once
 
+#include <utility>
 #include <memory>
 #include <map>
 #include <vector>
