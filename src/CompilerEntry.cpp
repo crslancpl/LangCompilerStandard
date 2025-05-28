@@ -3,6 +3,7 @@
 * job of reading every characters of the input file and pass it
 * to the
 */
+
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -11,6 +12,7 @@
 #include "ProjectMisc.h"
 #include "FileReader.h"
 #include "GlobalTools.h"
+#include "TableReader.h"
 
 
 using namespace std;
@@ -23,7 +25,9 @@ int main(int argnumber,char** InputFilePath){
     }
     SetEntryFile(InputFilePath[1]);
 
-    Reader::ReadFile(InputFilePath[1]);
+    TableReader TR;
+    TR.Read("TestingInputFiles/ProcessorTokenList.txt");
+    //Reader::ReadFile(InputFilePath[1]);
     Log::WriteLine(">> Compiler ended");
 
     cout <<endl;

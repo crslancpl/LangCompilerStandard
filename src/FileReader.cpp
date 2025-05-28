@@ -1,10 +1,15 @@
+/*
+*
+*
+*/
+
+#include "FileReader.h"
+
 #include <cstdlib>
 #include <string>
 #include <memory>
 #include <fstream>
 #include <utility>
-
-#include "FileReader.h"
 
 #include "FileDatas.h"
 #include "GlobalTools.h"
@@ -152,7 +157,7 @@ void Reader::Read(){
 }
 
 enum class ProcessType: short{
-    Text, NumberAndByte, Command, None
+    Text, NumberAndByte, Comment, None
 };
 
 void Reader::ProcessText(char NewChar){
@@ -160,7 +165,7 @@ void Reader::ProcessText(char NewChar){
     static ProcessType p;
     static string Note;
 
-    if(p == ProcessType::Command){
+    if(p == ProcessType::Comment){
         if(NewChar == '\n'){
             p = ProcessType::None;
         }
