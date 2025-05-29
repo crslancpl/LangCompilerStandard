@@ -27,7 +27,8 @@ int main(int argnumber,char** InputFilePath){
 
     TableReader TR;
     TR.Read("TestingInputFiles/ProcessorTokenList.txt");
-    //Reader::ReadFile(InputFilePath[1]);
+
+    Reader::ReadFile(InputFilePath[1]);
     Log::WriteLine(">> Compiler ended");
 
     cout <<endl;

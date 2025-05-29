@@ -50,6 +50,15 @@ Reader::Reader(string FilePath){
     }
 }
 
+bool Reader::IsTagLine(int line){
+    for(int i: Datas.TagLines){
+        if(i == line){
+            return true;
+        }
+    }
+    return false;
+}
+
 void Reader::InitializeReader(const string &FilePath){
     Datas.Path = FilePath;
     Datas.InputFilePath = FilePath;
@@ -59,7 +68,7 @@ void Reader::InitializeReader(const string &FilePath){
     //Find the tag in the file first
     FindTag(); //Current progress
     //And then trim the whole file to symbols (skip Tags and comments)
-
+    Read();
 }
 
 void Reader::GetFileNameAndDir(const string &FilePath){
@@ -88,11 +97,9 @@ void Reader::FindTag(){
         if(s[0] == '#') {
             //cout << cnt << "." << s << endl;//輸出格式1(有#)
             string TagContent = s.substr(1);
-            cout <<"Preprocessor: "<<Datas.FileName <<" "<<Datas.CurrentLine << "." << TagContent << endl;//輸出格式2(沒#)
+            //cout <<"Preprocessor: "<<Datas.FileName <<" "<<Datas.CurrentLine << "." << TagContent << endl;//輸出格式2(沒#)
             bool IsValidTag = IdentifyTag(TagContent);
-            if(IsValidTag){
-                Datas.TagLines.push_back(Datas.CurrentLine);
-            }
+            Datas.TagLines.push_back(Datas.CurrentLine);
         }
     }
 
@@ -121,7 +128,7 @@ bool Reader::IdentifyTag(const string &TagContent){
 
         if(Datas.Path == GetEntryFile()){
 
-            if(GetEntryFuncName().empty() && Contents.size() == 2){
+            if(GetEntryFuncName().empty() and Contents.size() == 2){
                 Log::WriteLine("Set entry function "+ Contents[1]);
                 SetEntryFunc(Contents[1]);
             }else{
@@ -143,26 +150,28 @@ bool Reader::IdentifyTag(const string &TagContent){
 
 
 void Reader::Read(){
-    Datas.CurrentLine = 0;
+    Datas.CurrentLine = 1;
     static string Symbol;
-
+    cout << "starts reading " << Datas.FileName<< endl;
     char c;
+    InputFile.clear();
+    InputFile.seekg(0);
     while(InputFile.get(c)){
         // The processor have to preload one char ahead so it can
         // determine is the next character associate with the current string
         ProcessText(c);
     }
-
+    cout << "close file"<<endl;
     InputFile.close();
 }
 
 enum class ProcessType: short{
-    Text, NumberAndByte, Comment, None
+    Text, NumberAndByte, Comment, Char, None
 };
 
 void Reader::ProcessText(char NewChar){
     static string CurrentText;
-    static ProcessType p;
+    static ProcessType p = ProcessType::None;
     static string Note;
 
     if(p == ProcessType::Comment){
@@ -189,20 +198,51 @@ void Reader::ProcessText(char NewChar){
         return;
     }
 
-    if(IsNumberChar(NewChar)){
-        //Number
-    }else if(IsAlphabetChar(NewChar)){
-        //Alphabet
-    }else{
-        //Special char
+    if(p == ProcessType::Char){
+        if(AcceptSucceedingSpecialChar(CurrentText, NewChar)){
+            CurrentText += NewChar;
+            return;
+        }else{
+            PushSymbol(CurrentText);
+            p = ProcessType::None;
+        }
     }
 
+    if(NewChar == '\n'){
+        //New line
+        Datas.CurrentLine ++;
+        PushSymbol(CurrentText);
+    }else if(IsTagLine(Datas.CurrentLine)){
+        return;
+    }else if(NewChar == ' ' or NewChar == '\t'){
+        //Blank
+        PushSymbol(CurrentText);
+    }else if(IsNumberChar(NewChar)){
+        //Number
+        CurrentText += NewChar;
+    }else if(IsAlphabetChar(NewChar)){
+        //Alphabet
+        CurrentText += NewChar;
+    }else{
+        //Special char
+        if(p != ProcessType::Char){
+            PushSymbol(CurrentText);
+            p = ProcessType::Char;
+            CurrentText += NewChar;
+        }
+    }
 }
 
 void Reader::PushSymbol(string &Symbol){
     if(! Symbol.empty()){
-        Symbols.push_back(Symbol);
+        TypeCode c = GetCodeFromKeyword(Symbol);
+        cout << (int)c << Symbol <<endl;
+        Symbols.insert(Symbols.end(),{c, Symbol});
         Symbol.clear();
     }
 
+}
+
+bool Reader::AcceptSucceedingSpecialChar(const string &Text ,char C){
+    return false;
 }

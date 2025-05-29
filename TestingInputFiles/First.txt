@@ -5,3 +5,7 @@ da
     #Use Third.txt
 st
 #Entry start
+var a = 1
+function af (b,c){
+    b=c
+}
