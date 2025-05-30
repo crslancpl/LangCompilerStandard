@@ -22,7 +22,7 @@ If there are descriptions place it at the top.
  #endif
 ```
 For cpp file:
-Include the header file for the cpp file first.
+Include the header file for the cpp file first. and then other files.
 ```cpp
 /*
 * description of the file
