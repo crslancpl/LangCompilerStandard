@@ -15,6 +15,7 @@
 #include <string>
 
 #include "FileReader.h"
+#include "Enums.h"
 #include "GlobalTools.h"
 
 using namespace std;

@@ -27,7 +27,7 @@ CMPLE = 25
 CMPG = 26
 CMPL = 27
 CMPNE = 28
-
+RETURN = 29
 
 OTHERS
 VAR : var
@@ -58,6 +58,7 @@ CMPLE : <=
 CMPG : >
 CMPL : <
 CMPNE : !=
+RETURN : return
 
 PARAMSTART
 PARAMEND

@@ -2,6 +2,6 @@
 #define TEXTPROCESSOR_H_
 #pragma once
 
-
+void Interpret();
 
 #endif

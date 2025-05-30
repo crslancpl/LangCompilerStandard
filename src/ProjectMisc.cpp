@@ -11,6 +11,7 @@
 #include <string>
 #include <utility>
 
+#include "Enums.h"
 #include "FileReader.h"
 #include "FileDatas.h"
 #include "GlobalTools.h"

@@ -13,6 +13,7 @@
 #include <string>
 
 #include "GlobalTools.h"
+#include "Enums.h"
 #include "FileDatas.h"
 
 using namespace std;

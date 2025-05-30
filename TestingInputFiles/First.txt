@@ -1,11 +1,9 @@
 //start
 #Use Second.txt
-da
- #Use
-    #Use Third.txt
-st
 #Entry start
-var a = 1
-function af (b,c){
-    b=c
+
+var a=1
+function<num> start (b<num>,c){
+    b+=1
+    return b
 }
