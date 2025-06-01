@@ -128,7 +128,7 @@ bool Reader::IdentifyTag(const string &TagContent){
 
         if(Datas.Path == GetEntryFile()){
 
-            if(GetEntryFuncName().empty() and Contents.size() == 2){
+            if(GetEntryFuncName().empty() && Contents.size() == 2){
                 Log::WriteLine("Set entry function "+ Contents[1]);
                 SetEntryFunc(Contents[1]);
             }else{
@@ -214,7 +214,7 @@ void Reader::ProcessText(char NewChar){
         PushSymbol(CurrentText);
     }else if(IsTagLine(Datas.CurrentLine)){
         return;
-    }else if(NewChar == ' ' or NewChar == '\t'){
+    }else if(NewChar == ' ' || NewChar == '\t'){
         //Blank
         PushSymbol(CurrentText);
     }else if(IsNumberChar(NewChar)){

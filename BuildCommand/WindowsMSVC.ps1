@@ -1,0 +1,2 @@
+cl /Fo".\Compiled\WinObjectFiles\" /Fe".\Compiled\LCompiler.exe" src\CompilerEntry.cpp src\FileReader.cpp src\GlobalTools.cpp src\ProjectMisc.cpp src\TextProcessor.cpp src\TableReader.cpp
+& ".\Compiled\LCompiler.exe" TestingInputFiles\First.txt
