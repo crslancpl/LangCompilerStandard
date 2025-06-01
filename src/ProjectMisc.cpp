@@ -11,6 +11,7 @@
 #include <string>
 #include <utility>
 
+#include "Enums.h"
 #include "FileReader.h"
 #include "FileDatas.h"
 #include "GlobalTools.h"
@@ -44,6 +45,14 @@ void AddKeyword(const string &Type, const string &Keyword){
     Keywords.insert(Keywords.end(), P);
 }
 
+TypeCode GetCodeFromKeyword(const string &Keyword){
+    map<string, TypeCode>::iterator i = Keywords.find(Keyword);
+    if(i != Keywords.end()){
+        //It is a keyword
+        return i->second;
+    }
+    else return TypeCode::OTHERS;
+}
 
 
 

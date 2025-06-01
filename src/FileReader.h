@@ -4,16 +4,16 @@
 
 #ifndef FILEREADER_H_
 #define FILEREADER_H_
+#pragma once
 
 #include <fstream>
 #include <vector>
-#pragma once
-
 #include <memory>
 #include <iostream>
 #include <string>
 
 #include "GlobalTools.h"
+#include "Enums.h"
 #include "FileDatas.h"
 
 using namespace std;
@@ -31,7 +31,7 @@ class Reader{
     bool IsFileExist = true;
     Log Logger;
     //this will store current file name
-    vector<string> Symbols;
+    map<TypeCode,string> Symbols;
     /* File Data*/
     FileDatas Datas;
 
@@ -39,6 +39,8 @@ class Reader{
     ifstream InputFile;
 
     int TotalLine; //this will be known when searching for tag
+
+    bool IsTagLine(int line);
 
     void InitializeReader(const string &FilePath);
 
@@ -53,6 +55,8 @@ class Reader{
     void ProcessText(char NewChar);
 
     void PushSymbol(string &Symbol);
+
+    bool AcceptSucceedingSpecialChar(const string &Text, char C);
 
 };
 

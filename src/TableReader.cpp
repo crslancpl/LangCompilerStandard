@@ -41,7 +41,6 @@ void TableReader::Read(const string &FilePath){
                 AddKeywordCode(LineContent[0], stoi(LineContent[2]));
             }
             if(LineContent[1] == ":"){
-                cout<< endl<< LineContent[0] << " => " << LineContent[2]<<endl;
                 AddKeyword(LineContent[0], LineContent[2]);
             }
         }
