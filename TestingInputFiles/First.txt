@@ -4,6 +4,6 @@
 
 var a=1
 function<num> start (b<num>,c){
-    b+=1
+    b+="aaaa\"dad"
     return b
 }

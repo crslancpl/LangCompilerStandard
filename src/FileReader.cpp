@@ -227,7 +227,11 @@ void Reader::ProcessText(char NewChar){
         //Special char
         if(p != ProcessType::Char){
             PushSymbol(CurrentText);
-            p = ProcessType::Char;
+            if(NewChar == '\'' || NewChar == '\"' ){
+                p=ProcessType::Text
+            }else{
+                p = ProcessType::Char;
+            }
             CurrentText += NewChar;
         }
     }
