@@ -20,6 +20,8 @@
 
 map< string, TypeCode> KeywordsTypes;
 map< string, TypeCode> Keywords;
+map< string, TypeCode> CharKeywords;
+
 void AddKeywordCode(const string &Keyword, unsigned short Code){
     pair<string, TypeCode> P;
     P.first = Keyword;
@@ -30,7 +32,9 @@ void AddKeywordCode(const string &Keyword, unsigned short Code){
 void AddKeyword(const string &Type, const string &Keyword){
     // Type can be either name or code of the keyword
     pair<string, TypeCode> P;
+
     P.first = Keyword;
+
     if(IsNumberChar(Type[0])){
         // The mapping is mapped by code instead of the name of keyword
         P.second = static_cast<TypeCode>(stoi(Type));
@@ -42,20 +46,47 @@ void AddKeyword(const string &Type, const string &Keyword){
             return;
         }
     }
-    Keywords.insert(Keywords.end(), P);
+
+    if(IsAlphabetChar(Keyword[0])){
+        // String keyword
+        Keywords.insert(Keywords.end(), P);
+    }else{
+        // Characters keyword
+        CharKeywords.insert(CharKeywords.end(), P);
+    }
 }
 
 TypeCode GetCodeFromKeyword(const string &Keyword){
-    map<string, TypeCode>::iterator i = Keywords.find(Keyword);
+    map<string, TypeCode>::iterator i;
+
+    i = CharKeywords.find(Keyword);
+    if(i != CharKeywords.end()){
+        //It is a keyword
+        // cout <<(int) i ->second << endl;
+        return i->second;
+    }
+    //////
+    i = Keywords.find(Keyword);
     if(i != Keywords.end()){
         //It is a keyword
         return i->second;
     }
+
     else return TypeCode::OTHERS;
 }
 
+bool AcceptSucceedingSpecialChar(const string &Text ,char C){
+    for(pair<string, TypeCode> s: CharKeywords){
+        if(StartWith(s.first,Text)){
+            if(s.first[Text.length()] == C){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
-
+///////////////////////////////////
 
 vector< shared_ptr<Reader> > Readers;
 map<string,bool> AssociateFiles;

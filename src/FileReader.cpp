@@ -11,6 +11,7 @@
 #include <fstream>
 #include <utility>
 
+#include "Enums.h"
 #include "FileDatas.h"
 #include "GlobalTools.h"
 #include "ProjectMisc.h"
@@ -169,14 +170,20 @@ enum class ProcessType: short{
     Text, NumberAndByte, Comment, Char, None
 };
 
+ProcessType p = ProcessType::None;
+
 void Reader::ProcessText(char NewChar){
     static string CurrentText;
-    static ProcessType p = ProcessType::None;
     static string Note;
+    if (IsTagLine(Datas.CurrentLine)) {
+        if(NewChar != '\n') return;
+    }
 
+Beginning:
     if(p == ProcessType::Comment){
         if(NewChar == '\n'){
             p = ProcessType::None;
+            Datas.CurrentLine++;
         }
         return;
     }
@@ -190,6 +197,7 @@ void Reader::ProcessText(char NewChar){
             if(Note == "escape"){
                 Note.clear();
             }else{
+                Note.clear();
                 PushSymbol(CurrentText);
             }
         }else{
@@ -203,8 +211,11 @@ void Reader::ProcessText(char NewChar){
             CurrentText += NewChar;
             return;
         }else{
-            PushSymbol(CurrentText);
-            p = ProcessType::None;
+            TypeCode Result = PushSymbol(CurrentText);
+            if(Result == TypeCode::COMMENT){
+                p = ProcessType::Comment;
+                goto Beginning;
+            }
         }
     }
 
@@ -225,28 +236,25 @@ void Reader::ProcessText(char NewChar){
         CurrentText += NewChar;
     }else{
         //Special char
-        if(p != ProcessType::Char){
-            PushSymbol(CurrentText);
-            if(NewChar == '\'' || NewChar == '\"' ){
-                p=ProcessType::Text
-            }else{
-                p = ProcessType::Char;
-            }
-            CurrentText += NewChar;
+        PushSymbol(CurrentText);
+        if(NewChar == '\'' || NewChar == '\"' ){
+            p = ProcessType::Text;
+        }else{
+            p = ProcessType::Char;
         }
+        CurrentText += NewChar;
     }
 }
 
-void Reader::PushSymbol(string &Symbol){
+TypeCode Reader::PushSymbol(string &Symbol){
+    p = ProcessType::None;
     if(! Symbol.empty()){
         TypeCode c = GetCodeFromKeyword(Symbol);
-        cout << (int)c << Symbol <<endl;
+
+        cout << (int)c << " "<<Symbol <<endl;
         Symbols.insert(Symbols.end(),{c, Symbol});
         Symbol.clear();
+        return c;
     }
-
-}
-
-bool Reader::AcceptSucceedingSpecialChar(const string &Text ,char C){
-    return false;
+    return TypeCode::NONE;
 }

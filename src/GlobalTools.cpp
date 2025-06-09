@@ -80,6 +80,14 @@ bool IsAlphabetChar(char c){
     return false;
 }
 
+bool StartWith(const string &Text, const string &Pattern){
+    if(Text.length() < Pattern.length()) return false;
+    for(int i = 0; i < Pattern.length(); i++){
+        if(Text[i] != Pattern[i])return false;
+    }
+    return true;
+}
+
 bool Contains(const vector<string> &list, const string &item) {
   if (find(list.begin(), list.end(), item) != list.end()) {
     return true;

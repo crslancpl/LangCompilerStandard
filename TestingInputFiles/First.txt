@@ -5,5 +5,5 @@
 var a=1
 function<num> start (b<num>,c){
     b+="aaaa\"dad"
-    return b
+    return b //COMMENT
 }

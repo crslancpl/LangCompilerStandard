@@ -15,6 +15,8 @@ vector<string> TrimText(const string &Text, const string &Saperator);
 bool IsNumberChar(char c);
 bool IsAlphabetChar(char c);
 
+bool StartWith(const string &Text, const string &Pattern);
+
 bool Contains(const vector<string> &list, const string &item);
 bool Contains(const string &list, char character);
 void RemoveLeadingInvisibleChar(string &Text);

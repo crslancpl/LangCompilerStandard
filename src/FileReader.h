@@ -54,9 +54,7 @@ class Reader{
 
     void ProcessText(char NewChar);
 
-    void PushSymbol(string &Symbol);
-
-    bool AcceptSucceedingSpecialChar(const string &Text, char C);
+    TypeCode PushSymbol(string &Symbol);
 
 };
 

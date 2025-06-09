@@ -32,7 +32,9 @@ enum class TypeCode{
     CMPG = 26,
     CMPL = 27,
     CMPNE = 28,
-    RETURN = 29
+    RETURN = 29,
+    NONE = 30,
+    COMMENT = 31
 };
 
 

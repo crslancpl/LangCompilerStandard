@@ -28,6 +28,8 @@ CMPG = 26
 CMPL = 27
 CMPNE = 28
 RETURN = 29
+COMMENT = 31
+
 
 OTHERS
 VAR : var
@@ -59,6 +61,7 @@ CMPG : >
 CMPL : <
 CMPNE : !=
 RETURN : return
+COMMENT : //
 
 PARAMSTART
 PARAMEND
