@@ -105,7 +105,7 @@ bool Contains(const string &list, char character){
     return false;
 }
 
-void RemoveLeadingInvisibleChar(string &Text){
+void RmSurroundingInvisibleChar(string &Text){
     /*
     * This will remove whitespaces,tabs,and newline symbols before the Text.
     */
@@ -120,6 +120,14 @@ void RemoveLeadingInvisibleChar(string &Text){
     }
 
     Text = Text.substr(i);
+
+    for(i = Text.length()-1; i >= 0; i--){
+        if(Text[i] == ' ' || Text[i] == '\t'){
+            Text.erase(i,1);
+        }else{
+            return;
+        }
+    }
 }
 
 // Class Log

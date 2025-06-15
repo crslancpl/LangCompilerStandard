@@ -12,7 +12,7 @@
 #include "ProjectMisc.h"
 #include "FileReader.h"
 #include "GlobalTools.h"
-#include "TableReader.h"
+#include "CFSetup.h"
 
 
 using namespace std;
@@ -23,12 +23,9 @@ int main(int argnumber,char** InputFilePath){
         Log::WriteLine("No input file");
         return 0;
     }
-    SetEntryFile(InputFilePath[1]);
 
-    TableReader TR;
-    TR.Read("TestingInputFiles/ProcessorTokenList.txt");
-
-    Reader::ReadFile(InputFilePath[1]);
+    ProjectSetup::ReadProject(InputFilePath[1]);
+    Reader::ReadFile(GetEntryFile());
     Log::WriteLine(">> Compiler ended");
 
     cout <<endl;

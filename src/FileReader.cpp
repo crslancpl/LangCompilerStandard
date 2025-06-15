@@ -94,7 +94,7 @@ void Reader::FindTag(){
 
     while(getline(InputFile, s)) {
         Datas.CurrentLine ++;
-        RemoveLeadingInvisibleChar(s);
+        RmSurroundingInvisibleChar(s);
         if(s[0] == '#') {
             //cout << cnt << "." << s << endl;//輸出格式1(有#)
             string TagContent = s.substr(1);
@@ -211,8 +211,8 @@ Beginning:
             CurrentText += NewChar;
             return;
         }else{
-            TypeCode Result = PushSymbol(CurrentText);
-            if(Result == TypeCode::COMMENT){
+            int Result = PushSymbol(CurrentText);
+            if(Result == 31){
                 p = ProcessType::Comment;
                 goto Beginning;
             }
@@ -246,15 +246,15 @@ Beginning:
     }
 }
 
-TypeCode Reader::PushSymbol(string &Symbol){
+int Reader::PushSymbol(string &Symbol){
     p = ProcessType::None;
     if(! Symbol.empty()){
-        TypeCode c = GetCodeFromKeyword(Symbol);
+        int c = GetCodeFromKeyword(Symbol);
 
         cout << (int)c << " "<<Symbol <<endl;
         Symbols.insert(Symbols.end(),{c, Symbol});
         Symbol.clear();
         return c;
     }
-    return TypeCode::NONE;
+    return -1;
 }

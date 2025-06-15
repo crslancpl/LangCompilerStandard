@@ -31,7 +31,7 @@ class Reader{
     bool IsFileExist = true;
     Log Logger;
     //this will store current file name
-    map<TypeCode,string> Symbols;
+    map<int,string> Symbols;
     /* File Data*/
     FileDatas Datas;
 
@@ -54,7 +54,7 @@ class Reader{
 
     void ProcessText(char NewChar);
 
-    TypeCode PushSymbol(string &Symbol);
+    int PushSymbol(string &Symbol);// return -1 if it is not a valid symbol
 
 };
 

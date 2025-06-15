@@ -1,0 +1,19 @@
+#CFTokenTable
+CFTokenTable.txt
+CFToken2.txt
+
+/Comment
+This file will provide the connection between Int (which is the Code used and understand by the compiler)
+and the string code(which is dedicated for human)
+/Comment
+
+
+#CustomTokenTable
+Token.txt
+
+#EntryFile
+First.txt
+
+/Comment
+The compiler will look for the associated file in your EntryFile automatically
+/Comment

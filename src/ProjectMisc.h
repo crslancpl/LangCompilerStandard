@@ -20,9 +20,9 @@
 
 using namespace std;
 
-void AddKeywordCode(const string &Keyword, unsigned short Code);
-void AddKeyword(const string &Code , const string &Keyword);
-TypeCode GetCodeFromKeyword(const string &Keyword);
+void AddCFCode(const string &Keyword, unsigned short Code);
+void AddCustKeyword(const string &Code , const string &Keyword);
+int GetCodeFromKeyword(const string &Keyword);
 bool AcceptSucceedingSpecialChar(const string &Text, char C);
 void AddReader(shared_ptr<Reader> &reader);
 

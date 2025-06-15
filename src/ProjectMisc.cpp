@@ -18,28 +18,29 @@
 
 
 
-map< string, TypeCode> KeywordsTypes;
-map< string, TypeCode> Keywords;
-map< string, TypeCode> CharKeywords;
+map< string, int> KeywordsTypes;
+map< string, int> Keywords;
+map< string, int> CharKeywords;
 
-void AddKeywordCode(const string &Keyword, unsigned short Code){
-    pair<string, TypeCode> P;
+void AddCFCode(const string &Keyword, unsigned short Code){
+    pair<string, int> P;
     P.first = Keyword;
-    P.second = static_cast<TypeCode>(Code);
+    P.second = Code;
     KeywordsTypes.insert(KeywordsTypes.end(), P);
 }
 
-void AddKeyword(const string &Type, const string &Keyword){
+void AddCustKeyword(const string &Type, const string &Keyword){
+    cout << "33"<<endl;
     // Type can be either name or code of the keyword
-    pair<string, TypeCode> P;
+    pair<string, int> P;
 
     P.first = Keyword;
 
     if(IsNumberChar(Type[0])){
         // The mapping is mapped by code instead of the name of keyword
-        P.second = static_cast<TypeCode>(stoi(Type));
+        P.second = stoi(Type);
     }else{
-        map<string, TypeCode>::iterator i = KeywordsTypes.find(Type);
+        map<string, int>::iterator i = KeywordsTypes.find(Type);
         if(i != KeywordsTypes.end()){
             P.second = i ->second;
         }else{
@@ -56,8 +57,8 @@ void AddKeyword(const string &Type, const string &Keyword){
     }
 }
 
-TypeCode GetCodeFromKeyword(const string &Keyword){
-    map<string, TypeCode>::iterator i;
+int GetCodeFromKeyword(const string &Keyword){
+    map<string, int>::iterator i;
 
     i = CharKeywords.find(Keyword);
     if(i != CharKeywords.end()){
@@ -72,11 +73,11 @@ TypeCode GetCodeFromKeyword(const string &Keyword){
         return i->second;
     }
 
-    else return TypeCode::OTHERS;
+    else return 0;
 }
 
 bool AcceptSucceedingSpecialChar(const string &Text ,char C){
-    for(pair<string, TypeCode> s: CharKeywords){
+    for(pair<string, int> s: CharKeywords){
         if(StartWith(s.first,Text)){
             if(s.first[Text.length()] == C){
                 return true;
@@ -99,6 +100,7 @@ void SetInputFileDir(const string &Dir){
     InputFileDirectory = Dir;
     Log::WriteLine("Project Directory: " + InputFileDirectory);
 }
+
 string GetInputFileDir(){
     return InputFileDirectory;
 }
